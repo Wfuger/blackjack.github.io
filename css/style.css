@@ -1,4 +1,62 @@
+html{
+  height: 100%;
+}
 body {
   background-image: url('../images/Blackjack-table.png');
   background-size: cover;
+  height: 100%;
+}
+main {
+  height: 100%;
+  border: 10px solid red;
+}
+#dealer {
+  display: flex;
+  border: 5px solid white;
+  height: 50%;
+}
+#player {
+  display: flex;
+  border: 5px solid blue;
+  height: 50%;
+}
+.hand {
+  height: 200px;
+  border: 2px solid black;
+  width: 752px;
+  margin-top: 25px;
+  margin-left: 3px;
+}
+.score {
+  border: 5px solid yellow;
+  height: 100px;
+  width: 200px;
+}
+.left{
+  display: flex;
+  height: 100%;
+  flex: 1;
+  border: 5px dashed yellow;
+  justify-content: center;
+}
+.middle {
+  display: flex;
+  height: 100%;
+  flex: 2.5;
+  border: 5px dashed blue;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+.right {
+  display: flex;
+  height: 100%;
+  flex: 1;
+  border: 5px dashed yellow;
+  justify-content: center;
+}
+#buttons {
+  border: 3px solid purple;
+  height: 25%;
+  width: 752px;
+  margin-top: -12px;
 }
