@@ -12,4 +12,12 @@ $(function() {
       "transform": "rotateY("+currdeg+"deg)"
     })
   })
+  $('img').on('click', function(){
+    var bgColor = $(this).attr('src')
+    var TheImage = localStorage.setItem('background', bgColor);
+  })
+  $('input[type="submit"]').on('click', function() {
+    var numDecks = $('input[type="radio"]:checked').attr('value');
+    var setDecks = localStorage.setItem('decks', numDecks);
+  })
 });

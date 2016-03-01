@@ -1,14 +1,17 @@
 $(function() {
+  var tableColor = localStorage.getItem('background');
+  $('body').css({'background-image' : 'url('+tableColor+')'})
+  var numDecks = localStorage.getItem('decks');
   var deck = [];
   var playerHand = [];
   var dealerHand = [];
   var deckID;
   var playerScore = 0;
   var dealerScore = 0;
-  $.getJSON("http://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1", function(d) {
+  $.getJSON("http://deckofcardsapi.com/api/deck/new/shuffle/?deck_count="+numDecks, function(d) {
     deckID = d.deck_id;
   }).then(function() {
-    $.getJSON("http://deckofcardsapi.com/api/deck/" + deckID + "/draw/?count=52", function(card) {
+    $.getJSON("http://deckofcardsapi.com/api/deck/" + deckID + "/draw/?count="+(numDecks * 52), function(card) {
       for (i = 0; i < card.cards.length; i++) {
         if (card.cards[i].value == "ACE") {
           card.cards[i].value = 11;
@@ -19,6 +22,7 @@ $(function() {
         }
         deck.push(card.cards[i]);
       }
+      console.log(deck);
 
       function deal() {
         for (var i = 0; i < 2; i++) {
@@ -44,9 +48,22 @@ $(function() {
         dealerHand = [];
       }
 
+      function endTurn() {
+
+        // clear();
+      }
+
       function dealersTurn() {
-        dealerHand.push(deck[0])
-        if ()
+        dealerHand.push(deck[0]);
+        deck.shift();
+        score();
+        while( dealerScore < 17  ) {
+          dhit();
+          score();
+        }
+        if ( dealerScore <= 21 && dealerScore >= 17) {
+          endTurn();
+        }
       }
       function score () {
         playerScore = 0;
@@ -54,18 +71,19 @@ $(function() {
         for (var i = 0; i < playerHand.length; i++){
           playerScore += playerHand[i].value;
         }
-        for (var i = 0; i < dealerHand.length; i++){
-          dealerScore += dealerHand[i].value;
+        for (var j = 0; j < dealerHand.length; j++){
+          dealerScore += dealerHand[j].value;
         }
       }
-      deal()
-      dealersTurn()
-      score()
-      console.log("dealer hand" + dealerHand[0].value + dealerHand[1].value);
-      pHit()
-      console.log("player score" + playerScore);
-      console.log("dealer score" + dealerScore);
-      dealersTurn()
+
+      // deal()
+      // dealersTurn()
+      // score()
+      // console.log("dealer hand" + dealerHand[0].value + dealerHand[1].value);
+      // pHit()
+      // console.log("player score" + playerScore);
+      // console.log("dealer score" + dealerScore);
+      // dealersTurn()
     })
   })
 })
