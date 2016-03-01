@@ -4,28 +4,41 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="http://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js" type="text/javascript" charset="utf-8"></script>
   <script src="../js/app.js" charset="utf-8"></script>
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8">
+  <link rel="stylesheet" href="../css/indexStyle.css" type="text/css" charset="utf-8">
 </head>
 
 <body>
   <main>
-    <section id="top">
-      <div id="dealer" class="playingField">
-        <div class="hand"></div>
-        <div class="score"></div>
-        <div></div>
-      </div>
+    <header>
+      <h1>Let's play BlackJack!</h1>
+    </header>
+    <section id="user">
+
     </section>
 
-    <section id="bottom">
-      <div id="player" class="playingField">
-        <div class="hand"></div>
-        <div class="score"></div>
-        <div id="buttons"></div>
-      </div>
-    </section>
+    <div class="row">
+      <aside id="back">
+        <button id="prev">
+          <</button>
+      </aside>
+      <section id="backgoundSelector">
+        <div id="carousel">
+          <figure><img src="../images/Blue-Table.png" />Blue Table</figure>
+          <figure><img src="../images/Black-Table.png" />Black Table</figure>
+          <figure><img src="../images/Red-Table.png" />Red Table</figure>
+          <figure><img src="../images/Gold-Table.png" />Gold Table</figure>
+          <figure><img src="../images/Green-Table.png" />Green Table</figure>
+        </div>
+      </section>
+      <aside id="forward">
+        <button id="next">></button>
+      </aside>
+    </div>
   </main>
 </body>
+
 </html>

@@ -1,6 +1,15 @@
-$(function () {
-  function deck(){
-    var suit = [[], [], [], []]
-    var cards = ['2', '3', '4', '5', '6', '']
-  }
-})
+$(function() {
+  var currdeg = 0;
+  $("#next").on("click", function() {
+    currdeg += 72;
+    $("#carousel").css({
+      "transform": "rotateY("+currdeg+"deg)"
+    });
+  });
+  $("#prev").on("click", function() {
+    currdeg -= 72;
+    $("#carousel").css({
+      "transform": "rotateY("+currdeg+"deg)"
+    })
+  })
+});
