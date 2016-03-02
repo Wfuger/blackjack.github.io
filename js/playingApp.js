@@ -51,6 +51,7 @@ $(function() {
           count += deck[0].count;
           deck.shift();
         }
+        dealerHand.push({image: "../images/red-back.png"})
         dealerHand.push(deck[0])
         count += deck[0].count;
         upDateCount();
@@ -78,7 +79,8 @@ $(function() {
       }
 
       function dealersTurn() {
-        dealerHand.push(deck[0]);
+        dealerHand.shift();
+        dealerHand.unshift(deck[0]);
         count += deck[0].count;
         upDateCount();
         deck.shift();
