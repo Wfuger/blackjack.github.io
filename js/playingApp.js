@@ -11,10 +11,15 @@ $(function() {
   var playerScore = 0;
   var dealerScore = 0;
   var count = 0;
+  var chips = 500;
+  var bet = 10;
+  var totalBet = 10;
   $.getJSON("http://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=" + numDecks, function(d) {
     deckID = d.deck_id;
   }).then(function() {
     $.getJSON("http://deckofcardsapi.com/api/deck/" + deckID + "/draw/?count=" + (numDecks * 52), function(card) {
+      $('#hit').hide();
+      $('#stick').hide();
       for (i = 0; i < card.cards.length; i++) {
         if (card.cards[i].value == "ACE") {
           card.cards[i].value = 11;
@@ -23,7 +28,6 @@ $(function() {
         } else {
           card.cards[i].value = +card.cards[i].value;
         }
-
         deck.push(card.cards[i]);
       }
       for (c = 0; c < deck.length; c++) {
@@ -34,7 +38,11 @@ $(function() {
         } else {
           deck[c].count = 0;
         }
-        // console.log(deck[c].count)
+      }
+      function showChips () {
+        $('#chipCount').children().remove();
+        $('#chipCount').append('<h4>Chips: $'+chips+'</h4>')
+        $('#chipCount').append('<h4>Bet: $'+totalBet+'</h4>')
       }
 
       function showCards() {
@@ -64,9 +72,16 @@ $(function() {
         deck.shift();
         score();
         showCards();
-        // if(playerScore === 21) {
-        //   $('').append('<h1>Winner Winner<br>Chicken Dinner!</h1>')
-        // }
+        if(playerScore === 21) {
+          $('#result').append('<h4>Winner Winner Chicken Dinner!</h4>')
+          dealersTurn();
+          $('#hit').hide();
+          $('#stick').hide();
+          $('#deal').show();
+        }
+        if(playerScore > 21) {
+          checkPlayerAces();
+        }
       }
 
       function pHit() {
@@ -88,7 +103,6 @@ $(function() {
         for (var a = 0; a < playerHand.length; a++) {
           if (playerHand[a].value == 11) {
             playerHand[a].value = 1;
-            console.log('wtf mate? ' + playerHand[a].value);
             return score();
           }
         }
@@ -98,7 +112,6 @@ $(function() {
         for (var b = 0; b < dealerHand.length; b++) {
           if (dealerHand[b].value == 11) {
             dealerHand[b].value = 1;
-            console.log('wtf mate? ' + dealerHand[b].value);
             return score();
           }
         }
@@ -134,23 +147,19 @@ $(function() {
             }
           }
           score();
+          chips += (totalBet * 1.5);
+          showChips()
           return $('#result').append('<h4>You Win!</h4>')
-          console.log("You win");
-          console.log('player score 1', playerScore, 'dealerScore', dealerScore);
         } else if (dealerScore > playerScore) {
           return $('#result').append('<h4>You Lose!</h4>')
-          console.log("You lose");
-          console.log('player score 2', playerScore, 'dealerScore', dealerScore);
         } else if (dealerScore === playerScore) {
           return $('#result').append('<h4>Push</h4>')
-          console.log("Push");
-          console.log('player score 3', playerScore, 'dealerScore', dealerScore);
+          chips += totalBet
         } else {
+          chips += (totalBet * 1.5);
+          showChips();
           return $('#result').append('<h4>You Win!</h4>')
-          console.log("You win");
-          console.log('player score 4', playerScore, 'dealerScore', dealerScore);
         }
-        console.log("dealer Score " + dealerScore, 'playerScr', playerScore);
       }
 
       function showPlayerScore() {
@@ -183,7 +192,7 @@ $(function() {
       $('#hit').on('click', function() {
         pHit()
         score()
-        console.log(count);
+        $('#bet').hide();
         if (playerScore > 21) {
           checkPlayerAces();
         }
@@ -197,6 +206,7 @@ $(function() {
       $('#stick').on('click', function() {
         $('#hit').hide();
         $('#stick').hide();
+        $('#bet').hide();
         $('#deal').show();
         dealersTurn()
       })
@@ -205,8 +215,16 @@ $(function() {
         $('#deal').hide();
         $('#hit').show();
         $('#stick').show();
+        $('#bet').show()
         clear()
         deal()
+        totalBet = 10;
+        showChips()
+      })
+      $('#bet').on('click', function() {
+        chips -= bet;
+        totalBet += bet;
+        showChips();
       })
     })
   })
