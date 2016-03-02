@@ -63,8 +63,6 @@ $(function() {
                 upDateCount();
                 deck.shift();
                 score();
-                console.log("initial count" + count);
-                // console.log("initial dealer score" + dealerScore);
                 showCards();
                 // if(playerScore === 21) {
                 //   $('').append('<h1>Winner Winner<br>Chicken Dinner!</h1>')
