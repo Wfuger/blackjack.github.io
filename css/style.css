@@ -27,10 +27,19 @@ main {
   margin-top: 25px;
   margin-left: 3px;
 }
-.score {
-  border: 5px solid yellow;
+#score {
+  border: 5px dotted yellow;
   height: 100px;
   width: 200px;
+  text-align: center;
+}
+h4{
+  color: rgb(255, 244, 232);
+  font-size: 50px;
+}
+.cardClass{
+  height: 200px;
+  width: 150px;
 }
 .left{
   display: flex;
