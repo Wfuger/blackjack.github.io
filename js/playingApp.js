@@ -55,7 +55,7 @@ $(function() {
                   deck.shift();
                 }
                 dealerHand.push({
-                  image: "../images/red-back.png",
+                  image: "images/red-back.png",
                   value: 0
                 })
                 dealerHand.push(deck[0])
@@ -108,7 +108,6 @@ $(function() {
                 count += deck[0].count;
                 upDateCount();
                 deck.shift();
-                // console.log("dealer second card" + dealerHand[1].value);
                 showCards();
                 score();
                 while (dealerScore < 17) {
@@ -118,12 +117,8 @@ $(function() {
                   upDateCount();
                   showCards();
                   dealerScore += dealerHand[dealerHand.length - 1].value;
-                  console.log("booger " + dealerHand[dealerHand.length - 1].value);
                 }
                 score();
-                $('#hit #stick').hide();
-                console.log('player score', playerScore, 'dealerScore', dealerScore);
-                console.log("Wait Whaaat? " + count);
                 if (dealerScore > 21) {
                   checkDealerAces();
                   if (dealerScore < 17) {
@@ -134,7 +129,6 @@ $(function() {
                       upDateCount();
                       showCards();
                       dealerScore += dealerHand[dealerHand.length - 1].value;
-                      console.log("booger " + dealerHand[dealerHand.length - 1].value);
                     }
                   }
                   score()
@@ -193,13 +187,17 @@ $(function() {
                   if (playerScore > 21) {
                     checkPlayerAces();
                     } else {
-                      clear()
+
                     }
               })
-                  $('#stick').on('click', function() {
+                $('#stick').on('click', function() {
+                  $('#hit').hide();
+                  $('#stick').hide();
                   dealersTurn()
                 })
                 $('#deal').on('click', function() {
+                  $('#hit').show();
+                  $('#stick').show();
                   clear()
                   deal()
                 })
