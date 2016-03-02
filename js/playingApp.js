@@ -53,6 +53,7 @@ $(function() {
         }
         dealerHand.push(deck[0])
         count += deck[0].count;
+        upDateCount();
         deck.shift();
         score();
         console.log("initial count" + count);
@@ -64,6 +65,7 @@ $(function() {
       function pHit() {
         playerHand.push(deck[0]);
         count += deck[0].count;
+        upDateCount();
         deck.shift();
         showCards();
       }
@@ -78,6 +80,7 @@ $(function() {
       function dealersTurn() {
         dealerHand.push(deck[0]);
         count += deck[0].count;
+        upDateCount();
         deck.shift();
         // console.log("dealer second card" + dealerHand[1].value);
         showCards();
@@ -91,6 +94,7 @@ $(function() {
           console.log("booger " + dealerHand[dealerHand.length - 1 ].value);
         }
         score();
+        $('#hit #stick').hide();
         console.log('player score', playerScore,'dealerScore', dealerScore);
         console.log("Wait Whaaat? " + count);
         if ( dealerScore > 21) {
@@ -112,9 +116,17 @@ $(function() {
         }
         console.log("dealer Score " + dealerScore, 'playerScr', playerScore);
       }
-      function showScore() {
-        $("#score").children().remove();
-        $("#score").append('<h4> Your Score: ' + playerScore + '</h4>');
+      function showPlayerScore() {
+        $("#pScore").children().remove();
+        $("#pScore").append('<h4> Your Score: ' + playerScore + '</h4>');
+      }
+      function showDealerScore() {
+        $("#dScore").children().remove();
+        $("#dScore").append('<h4> Dealer Score: ' + dealerScore + '</h4>');
+      }
+      function upDateCount() {
+        $("#highscore").children().remove();
+        $('#highscore').append('<h4> Count: ' + count + '</h4>');
       }
       function score () {
         playerScore = 0;
@@ -127,7 +139,8 @@ $(function() {
           // console.log('in score for dealer', dealerHand[j].value);
           dealerScore += dealerHand[j].value;
         }
-        showScore();
+        showPlayerScore();
+        showDealerScore();
       }
       // deal()
       $('#hit').on('click', function(){

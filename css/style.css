@@ -26,8 +26,9 @@ main {
   width: 752px;
   margin-top: 25px;
   margin-left: 3px;
+  justify-content: space-around;;
 }
-#score {
+#pScore, #dScore {
   border: 5px dotted yellow;
   height: 100px;
   width: 200px;
