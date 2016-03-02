@@ -131,20 +131,20 @@ $(function() {
                       dealerScore += dealerHand[dealerHand.length - 1].value;
                     }
                   }
-                  score()
-                  // return
+                  score();
+                  return $('#result').append('<h4>You Win!</h4>')
                   console.log("You win");
                   console.log('player score 1', playerScore, 'dealerScore', dealerScore);
                 } else if (dealerScore > playerScore) {
-                  // return
+                  return $('#result').append('<h4>You Lose!</h4>')
                   console.log("You lose");
                   console.log('player score 2', playerScore, 'dealerScore', dealerScore);
                 } else if (dealerScore === playerScore) {
-                  // return
+                  return $('#result').append('<h4>Push</h4>')
                   console.log("Push");
                   console.log('player score 3', playerScore, 'dealerScore', dealerScore);
                 } else {
-                  // return
+                  return $('#result').append('<h4>You Win!</h4>')
                   console.log("You win");
                   console.log('player score 4', playerScore, 'dealerScore', dealerScore);
                 }
@@ -170,11 +170,9 @@ $(function() {
                 playerScore = 0;
                 dealerScore = 0;
                 for (var i = 0; i < playerHand.length; i++) {
-                  // console.log('in score for player', playerHand[i].value);
                   playerScore += playerHand[i].value;
                 }
                 for (var j = 0; j < dealerHand.length; j++) {
-                  // console.log('in score for dealer', dealerHand[j].value);
                   dealerScore += dealerHand[j].value;
                 }
                 showPlayerScore();
@@ -186,9 +184,11 @@ $(function() {
                   console.log(count);
                   if (playerScore > 21) {
                     checkPlayerAces();
-                    } else {
-
-                    }
+                  } if (playerScore > 21) {
+                    $('#result').append('<h4>BUSTED!</h4>')
+                    $('#hit').hide();
+                    $('#stick').hide();
+                  }
               })
                 $('#stick').on('click', function() {
                   $('#hit').hide();
@@ -196,6 +196,7 @@ $(function() {
                   dealersTurn()
                 })
                 $('#deal').on('click', function() {
+                  $('#result').children().remove()
                   $('#hit').show();
                   $('#stick').show();
                   clear()

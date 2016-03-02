@@ -68,6 +68,7 @@ img {
 #carousel figure:hover {
   border: 3px solid yellow;
 }
+
 #carousel figure:nth-child(1) {
   transform: rotateY( 0deg) translateZ( 210px );
 }
