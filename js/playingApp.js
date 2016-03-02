@@ -1,3 +1,4 @@
+alert('This game is to meant improve your card counting ability.  Rules for counting are cards 2-6 have a value of +1, 10-A have a value of -1.  Cards 7-9 are neutral')
 $(function() {
   var tableColor = localStorage.getItem('background');
   $('body').css({
@@ -42,7 +43,7 @@ $(function() {
       }
       function showChips () {
         $('#chipCount').children().remove();
-        chips -= bet;
+        // chips -= bet;
         $('#chipCount').append('<h4>Chips: $'+chips+'</h4>')
         $('#chipCount').append('<h4>Bet: $'+totalBet+'</h4>')
       }
@@ -59,6 +60,7 @@ $(function() {
       }
 
       function deal() {
+        chips -= bet
         for (var i = 0; i < 2; i++) {
           playerHand.push(deck[0])
           count += deck[0].count;
@@ -75,7 +77,7 @@ $(function() {
         score();
         showCards();
         if(playerScore === 21) {
-          $('#result').append('<h4>Winner Winner Chicken Dinner!</h4>')
+          // $('#result').append('<h1>Winner Winner Chicken Dinner!</h1>')
           dealersTurn();
           $('#hit').hide();
           $('#stick').hide();
@@ -211,7 +213,7 @@ $(function() {
           $('#deal').show();
           $('#hit').hide();
           $('#stick').hide();
-          totalBet = 10;
+          // totalBet = 10;
         }
       })
       $('#stick').on('click', function() {
@@ -229,11 +231,11 @@ $(function() {
         $('#bet').show()
         clear()
         deal()
-        // totalBet = 10;
+        totalBet = 10;
         showChips()
       })
       $('#bet').on('click', function() {
-        // chips -= bet;
+        chips -= bet;
         totalBet += bet;
         showChips();
       })
