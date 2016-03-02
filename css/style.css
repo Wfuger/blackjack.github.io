@@ -1,4 +1,4 @@
-html{
+html {
   height: 100%;
 }
 body {
@@ -11,13 +11,13 @@ main {
   /*border: 10px solid red;*/
 }
 #result {
-  z-index: 1000;
+  display: flex;
+  align-items: center;
   height: 100px;
   width: 750px;
-  /*border: 3px solid black;*/
-  text-align: center;
+  justify-content: center;
   line-height: 0px;
-  top: 0;
+  top: 0px;
 }
 #dealer {
   display: flex;
@@ -45,15 +45,21 @@ main {
   width: 200px;
   text-align: center;
 }
-h4{
-  color: rgb(0, 0, 0);
-  font-size: 50px;
+h1 {
+  color: rgb(219, 255, 0);
+  font-size: 70px;
+  text-shadow: 2px 2px 2px rgb(0, 0, 0);
 }
-.cardClass{
+h4 {
+  color: rgb(210, 210, 210);
+  font-size: 50px;
+  text-shadow: 2px 2px 2px rgb(0, 0, 0);
+}
+.cardClass {
   height: 200px;
   width: 150px;
 }
-.left{
+.left {
   display: flex;
   height: 100%;
   flex: 1;
@@ -93,4 +99,19 @@ button {
 }
 button:hover {
   background-color: rgb(4, 11, 82);
+}
+#chipCount {
+  text-align: center;
+  /*border: 5px solid white;*/
+}
+#bet {
+  bottom: 0;
+}
+#player .left {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  /*border: 2px solid blue;*/
+  justify-content: center;
+  align-items: center;
 }
