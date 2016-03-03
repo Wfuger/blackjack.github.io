@@ -16,7 +16,7 @@ $(function() {
   var count = 0;
   var chips = 500;
   var bet = 10;
-  var totalBet = 10;
+  var totalBet = 0;
   $.getJSON("http://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=" + numDecks, function(d) {
     deckID = d.deck_id;
   }).then(function() {
@@ -172,11 +172,11 @@ $(function() {
               $('#result').hide()
               endGame();
             }
-            return totalBet = 10;
+            return totalBet = 0;
           } else if (dealerScore === playerScore) {
             chips += totalBet
             showChips();
-            totalBet = 10;
+            totalBet = 0;
             if (deck.length === 0) {
               $('#result').hide()
               endGame();
@@ -190,7 +190,7 @@ $(function() {
               $('#result').hide()
               endGame();
             }
-            return totalBet = 10;
+            return totalBet = 0;
           } else {
             $('#result').append('<h1>You Win $' + (totalBet * 2) + '</h1>')
             chips += totalBet * 2
@@ -199,7 +199,7 @@ $(function() {
               $('#result').hide()
               endGame();
             }
-            return totalBet = 10;
+            return totalBet = 0;
           }
         } else if (dealerScore > playerScore) {
           $('#result').append('<h1>You Lose $' + totalBet + '</h1>')
@@ -208,12 +208,12 @@ $(function() {
             $('#result').hide()
             endGame();
           }
-          return totalBet = 10;
+          return totalBet = 0;
 
         } else if (dealerScore === playerScore) {
           chips += totalBet
           showChips();
-          totalBet = 10;
+          totalBet = 0;
           if (deck.length === 0) {
             $('#result').hide()
             endGame();
@@ -228,7 +228,7 @@ $(function() {
             $('#result').children().remove()
             endGame();
           }
-          return totalBet = 10;
+          return totalBet = 0;
         }
       }
 
@@ -296,6 +296,7 @@ $(function() {
       $('#deal').on('click', function() {
         console.log(deck.length);
         chips -= bet;
+        totalBet += bet;
         showChips()
         $('#result').children().remove()
         $('#deal').hide();
@@ -333,7 +334,7 @@ $(function() {
         }
         if (playerScore > 21) {
           $('#result').append('<h1>BUSTED!</h1>')
-          totalBet = 10;
+          totalBet = 0;
           $('#bet').show()
           $('#hit').hide();
           $('#stick').hide();
@@ -347,7 +348,7 @@ $(function() {
         $('#deal').show();
         $('#bet').show();
         $('#all-in').show();
-        totalBet = 10;
+        totalBet = 0;
         if (chips <= 10 || deck.length === 0) {
           $('#bet').hide();
           endGame();
@@ -358,7 +359,7 @@ $(function() {
           $('#result').children().remove()
           return endGame();
         } else {
-          totalBet = chips;
+          totalBet =  totalBet + chips;
           chips = 0;
           showChips()
           $('#result').children().remove()
