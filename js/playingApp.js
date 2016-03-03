@@ -1,4 +1,3 @@
-alert('Test your counting and Blackjack skills.  Rules for counting are cards 2-6 have a value of +1, 10-A have a value of -1.  Cards 7-9 are neutral. Bet high when the count is high. Bet conservatively when the count is low...don\'t tell Vegas.')
 $(function() {
   var tableColor = localStorage.getItem('background');
   $('body').css({
@@ -42,10 +41,6 @@ $(function() {
         } else {
           deck[c].count = 0;
         }
-      }
-
-      function endGame() {
-        $('#result').append('<h2>End of deck, reshuffle?<h2><br><input type="button" onclick="location.href=\'playingPage.html\'" value="Yes" /><input type="button" onclick="location.href=\'wtf.html\'" value="No" />');
       }
 
       function showChips() {
@@ -110,6 +105,16 @@ $(function() {
         dealerScore = 0;
       }
 
+      function endGame() {
+        $('#deal').hide();
+        $('#hit').hide();
+        $('#stick').hide();
+        $('#doubleDown').hide();
+        $('#all-in').hide();
+        $('#result').append('<h1>Continue?</h1><input class="continue" type="button" onclick="location.href=\'playingPage.html\'" value="YES" /><input class="continue" type="button" onclick="location.href=\'wtf.html\'" value="NO" />')
+        // $('#result').append('<h1>Continue?</h1><button id="reshuffle">YES</button><button id="endGame">NO</button>');
+      }
+
       function checkPlayerAces() {
         for (var a = 0; a < playerHand.length; a++) {
           if (playerHand[a].value == 11) {
@@ -163,36 +168,66 @@ $(function() {
             $('#result').append('<h1>You Win $' + (totalBet * 2) + '</h1>')
             chips += totalBet * 2
             showChips()
+            if (deck.length === 0) {
+              $('#result').hide()
+              endGame();
+            }
             return totalBet = 10;
           } else if (dealerScore === playerScore) {
             chips += totalBet
             showChips();
             totalBet = 10;
-            return $('#result').append('<h1>Push</h1>')
+            if (deck.length === 0) {
+              $('#result').hide()
+              endGame();
+            } else {
+              return $('#result').append('<h1>Push</h1>')
+            }
           } else if (dealerScore > playerScore) {
             $('#result').append('<h1>You Lose $' + totalBet + '</h1>')
             showChips();
+            if (chips <= 10 || deck.length === 0) {
+              $('#result').hide()
+              endGame();
+            }
             return totalBet = 10;
           } else {
             $('#result').append('<h1>You Win $' + (totalBet * 2) + '</h1>')
             chips += totalBet * 2
             showChips()
+            if (deck.length === 0) {
+              $('#result').hide()
+              endGame();
+            }
             return totalBet = 10;
           }
         } else if (dealerScore > playerScore) {
           $('#result').append('<h1>You Lose $' + totalBet + '</h1>')
           showChips();
+          if (deck.length === 0) {
+            $('#result').hide()
+            endGame();
+          }
           return totalBet = 10;
 
         } else if (dealerScore === playerScore) {
           chips += totalBet
           showChips();
           totalBet = 10;
-          return $('#result').append('<h1>Push</h1>')
+          if (deck.length === 0) {
+            $('#result').hide()
+            endGame();
+          } else {
+            return $('#result').append('<h1>Push</h1>')
+          }
         } else {
           $('#result').append('<h1>You Win $' + (totalBet * 2) + '</h1>')
           chips += totalBet * 2
           showChips();
+          if (deck.length === 0) {
+            $('#result').children().remove()
+            endGame();
+          }
           return totalBet = 10;
         }
       }
@@ -225,7 +260,9 @@ $(function() {
         showDealerScore();
       }
       $('#hit').on('click', function() {
-        // console.log(deck.length);
+        if (deck.length === 0) {
+          endGame();
+        }
         pHit()
         score()
         $('#bet').hide();
@@ -236,12 +273,14 @@ $(function() {
         if (playerScore > 21) {
           $('#result').append('<h1>BUSTED!</h1>')
           totalBet = 10;
-          showChips();
           $('#bet').show()
           $('#deal').show();
           $('#all-in').show();
           $('#hit').hide();
           $('#stick').hide();
+          if (chips <= 10 || deck.length === 0) {
+            endGame();
+          }
         }
       })
       $('#stick').on('click', function() {
@@ -255,7 +294,7 @@ $(function() {
         dealersTurn()
       })
       $('#deal').on('click', function() {
-        // console.log(deck.length);
+        console.log(deck.length);
         chips -= bet;
         showChips()
         $('#result').children().remove()
@@ -267,8 +306,14 @@ $(function() {
         $('#doubleDown').show()
         clear()
         deal()
+        if (chips <= 10 || deck.length === 0) {
+          endGame();
+        }
       })
       $('#bet').on('click', function() {
+        if (chips <= 10) {
+          $('#bet').hide();
+        }
         chips -= bet;
         totalBet += bet;
         showChips();
@@ -277,7 +322,6 @@ $(function() {
         $('#doubleDown').hide();
         chips -= totalBet;
         totalBet *= 2;
-        console.log(totalBet);
         showChips();
         playerHand.push(deck[0])
         count += deck[0].count;
@@ -290,7 +334,6 @@ $(function() {
         if (playerScore > 21) {
           $('#result').append('<h1>BUSTED!</h1>')
           totalBet = 10;
-          // showChips();
           $('#bet').show()
           $('#hit').hide();
           $('#stick').hide();
@@ -305,9 +348,18 @@ $(function() {
         $('#bet').show();
         $('#all-in').show();
         totalBet = 10;
+        if (chips <= 10 || deck.length === 0) {
+          $('#bet').hide();
+          endGame();
+        }
       })
       $('#all-in').on('click', function() {
+        if (chips <= 10) {
+          $('#result').children().remove()
+          return endGame();
+        } else {
           totalBet = chips;
+          chips = 0;
           showChips()
           $('#result').children().remove()
           $('#deal').hide();
@@ -315,13 +367,13 @@ $(function() {
           $('#stick').show();
           $('#bet').hide();
           $('#all-in').hide();
-          $('#doubleDown').show()
           clear()
           deal()
-        })
-        // $('#rules').on('click', function() {
-        //   alert('')
-        // })
+        }
+      })
+      $('#rules').on('click', function() {
+        alert('Test your counting and Blackjack skills.  Rules for counting are cards 2-6 have a value of +1, 10-A have a value of -1.  Cards 7-9 are neutral. Bet high when the count is high. Bet conservatively when the count is low...don\'t tell Vegas.')
+      })
     })
   })
 })
