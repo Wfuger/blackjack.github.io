@@ -112,7 +112,7 @@ $(function() {
         $('#doubleDown').hide();
         $('#all-in').hide();
         $('#result').children().remove();
-        $('#result').append('<h1> Continue?</h1><input class="continue" type="button" onclick="location.href=\'playingPage.html\'" value="YES" /><input class="continue" type="button" onclick="location.href=\'http://www.buzzfeed.com/chelseamarshall/meows#.ucxQA7xv7\'" value="NO" />')
+        $('#result').append('<h1>New Game?</h1><input class="continue" type="button" onclick="location.href=\'playingPage.html\'" value="YES" /><input class="continue" type="button" onclick="location.href=\'http://www.buzzfeed.com/chelseamarshall/meows#.ucxQA7xv7\'" value="NO" />')
       }
 
       function checkPlayerAces() {
@@ -169,8 +169,11 @@ $(function() {
             chips += totalBet * 2
             showChips()
             if (deck.length === 0) {
-
-              setTimeout(endGame, 2000);
+              setTimeout(function(){
+                $('#result').children().remove();
+                $('#result').append('<h1>Game Over</h1>');
+                setTimeout(endGame, 2000)
+              }, 2000)
             }
             return totalBet = 0;
           } else if (dealerScore === playerScore) {
@@ -178,8 +181,11 @@ $(function() {
             showChips();
             totalBet = 0;
             if (deck.length === 0) {
-
-              setTimeout(endGame, 2000);
+              setTimeout(function(){
+                $('#result').children().remove();
+                $('#result').append('<h1>Game Over</h1>');
+                setTimeout(endGame, 2000)
+              }, 2000)
             } else {
               return $('#result').append('<h1>Push</h1>')
             }
@@ -187,7 +193,11 @@ $(function() {
             $('#result').append('<h1>You Lose $' + totalBet + '</h1>')
             showChips();
             if (chips < 10 || deck.length === 0) {
-              setTimeout(endGame, 2000);
+              setTimeout(function(){
+                $('#result').children().remove();
+                $('#result').append('<h1>Game Over</h1>');
+                setTimeout(endGame, 2000)
+              }, 2000)
             }
             return totalBet = 0;
           } else {
@@ -195,8 +205,11 @@ $(function() {
             chips += totalBet * 2
             showChips()
             if (deck.length === 0) {
-
-              setTimeout(endGame, 2000);
+              setTimeout(function(){
+                $('#result').children().remove();
+                $('#result').append('<h1>Game Over</h1>');
+                setTimeout(endGame, 2000)
+              }, 2000)
             }
             return totalBet = 0;
           }
@@ -204,8 +217,11 @@ $(function() {
           $('#result').append('<h1>You Lose $' + totalBet + '</h1>')
           showChips();
           if (deck.length === 0 || chips < 10) {
-
-            setTimeout(endGame, 2000);
+            setTimeout(function(){
+              $('#result').children().remove();
+              $('#result').append('<h1>Game Over</h1>');
+              setTimeout(endGame, 2000)
+            }, 2000)
           }
           return totalBet = 0;
 
@@ -214,8 +230,11 @@ $(function() {
           showChips();
           totalBet = 0;
           if (deck.length === 0) {
-            $('#result').children().remove()
-            setTimeout(endGame, 2000);
+            setTimeout(function(){
+              $('#result').children().remove();
+              $('#result').append('<h1>Game Over</h1>');
+              setTimeout(endGame, 2000)
+            }, 2000)
           } else {
             return $('#result').append('<h1>Push</h1>')
           }
@@ -224,8 +243,11 @@ $(function() {
           chips += totalBet * 2
           showChips();
           if (deck.length === 0) {
-            $('#result').children().remove()
-            setTimeout(endGame, 2000);
+            setTimeout(function(){
+              $('#result').children().remove();
+              $('#result').append('<h1>Game Over</h1>');
+              setTimeout(endGame, 2000)
+            }, 2000)
           }
           return totalBet = 0;
         }
@@ -260,7 +282,11 @@ $(function() {
       }
       $('#hit').on('click', function() {
         if (deck.length === 0) {
-          setTimeout(endGame(), 2000);
+          setTimeout(function(){
+            $('#result').children().remove();
+            $('#result').append('<h1>Game Over</h1>');
+            setTimeout(endGame, 2000)
+          }, 2000)
         }
         pHit()
         score()
@@ -278,7 +304,11 @@ $(function() {
           $('#hit').hide();
           $('#stick').hide();
           if (chips < 10 || deck.length === 0) {
-            setTimeout(endGame, 2000);
+            setTimeout(function(){
+              $('#result').children().remove();
+              $('#result').append('<h1>Game Over</h1>');
+              setTimeout(endGame, 2000)
+            }, 2000)
           }
         }
       })
@@ -305,7 +335,11 @@ $(function() {
         clear()
         deal()
         if (chips <= 10 || deck.length === 0) {
-          setTimeout(endGame, 2000);
+          setTimeout(function(){
+            $('#result').children().remove();
+            $('#result').append('<h1>Game Over</h1>');
+            setTimeout(endGame, 2000)
+          }, 2000)
         }
       })
       $('#bet').on('click', function() {
@@ -348,7 +382,12 @@ $(function() {
         totalBet = 0;
         if (chips <= 10 || deck.length === 0) {
           $('#bet').hide();
-          setTimeout(endGame, 2000);
+          setTimeout(function(){
+            $('#result').children().remove();
+            $('#result').append('<h1>Game Over</h1>');
+            setTimeout(endGame, 2000)
+          }, 2000)
+
         }
       })
       $('#all-in').on('click', function() {
