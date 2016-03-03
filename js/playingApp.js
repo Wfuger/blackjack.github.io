@@ -41,11 +41,12 @@ $(function() {
           deck[c].count = 0;
         }
       }
-      function showChips () {
+
+      function showChips() {
         $('#chipCount').children().remove();
         // chips -= bet;
-        $('#chipCount').append('<h4>Chips: $'+chips+'</h4>')
-        $('#chipCount').append('<h4>Bet: $'+totalBet+'</h4>')
+        $('#chipCount').append('<h4>Chips: $' + chips + '</h4>')
+        $('#chipCount').append('<h4>Bet: $' + totalBet + '</h4>')
       }
 
       function showCards() {
@@ -60,7 +61,10 @@ $(function() {
       }
 
       function deal() {
-        chips -= bet
+        console.log(totalBet);
+        if (totalBet === 10) {
+          chips -= bet;
+        }
         for (var i = 0; i < 2; i++) {
           playerHand.push(deck[0])
           count += deck[0].count;
@@ -76,14 +80,14 @@ $(function() {
         deck.shift();
         score();
         showCards();
-        if(playerScore === 21) {
+        if (playerScore === 21) {
           // $('#result').append('<h1>Winner Winner Chicken Dinner!</h1>')
           dealersTurn();
           $('#hit').hide();
           $('#stick').hide();
           $('#deal').show();
         }
-        if(playerScore > 21) {
+        if (playerScore > 21) {
           checkPlayerAces();
         }
       }
@@ -151,25 +155,34 @@ $(function() {
             }
           }
           score();
-          chips += (totalBet * 1.5);
-          totalBet = 10;
-          showChips()
-          // $('#bet').show();
-          return $('#result').append('<h1>You Win!</h1>')
+          if (dealerScore > playerScore) {
+            totalBet = 10;
+            showChips()
+            return $('#result').append('<h1>You Lose!</h1>')
+          } else if (dealerScore === playerScore){
+            chips += totalBet
+            totalBet = 10;
+            showChips();
+            return $('#result').append('<h1>Push</h1>')
+          } else {
+            chips += (totalBet * 2);
+            totalBet = 10;
+            showChips();
+            return $('#result').append('<h1>You Win!</h1>')
+          }
         } else if (dealerScore > playerScore) {
           totalBet = 10;
-          // $('#bet').show();
+          showChips();
           return $('#result').append('<h1>You Lose!</h1>')
         } else if (dealerScore === playerScore) {
           chips += totalBet
           totalBet = 10;
-          // $('#bet').show();
+          showChips();
           return $('#result').append('<h1>Push</h1>')
         } else {
-          chips += (totalBet * 1.5);
+          chips += (totalBet * 2);
           totalBet = 10;
           showChips();
-          // $('#bet').show();
           return $('#result').append('<h1>You Win!</h1>')
         }
       }
@@ -219,7 +232,7 @@ $(function() {
       $('#stick').on('click', function() {
         $('#hit').hide();
         $('#stick').hide();
-        $('#bet').hide();
+        $('#bet').show();
         $('#deal').show();
         dealersTurn()
       })
@@ -231,7 +244,7 @@ $(function() {
         $('#bet').show()
         clear()
         deal()
-        totalBet = 10;
+          // totalBet = 10;
         showChips()
       })
       $('#bet').on('click', function() {
