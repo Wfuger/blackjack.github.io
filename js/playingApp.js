@@ -111,8 +111,8 @@ $(function() {
         $('#stick').hide();
         $('#doubleDown').hide();
         $('#all-in').hide();
-        $('#result').append('<h1>Continue?</h1><input class="continue" type="button" onclick="location.href=\'playingPage.html\'" value="YES" /><input class="continue" type="button" onclick="location.href=\'http://www.buzzfeed.com/chelseamarshall/meows#.ucxQA7xv7\'" value="NO" />')
-        // $('#result').append('<h1>Continue?</h1><button id="reshuffle">YES</button><button id="endGame">NO</button>');
+        $('#result').children().remove();
+        $('#result').append('<h1> Continue?</h1><input class="continue" type="button" onclick="location.href=\'playingPage.html\'" value="YES" /><input class="continue" type="button" onclick="location.href=\'http://www.buzzfeed.com/chelseamarshall/meows#.ucxQA7xv7\'" value="NO" />')
       }
 
       function checkPlayerAces() {
@@ -169,8 +169,8 @@ $(function() {
             chips += totalBet * 2
             showChips()
             if (deck.length === 0) {
-              $('#result').hide()
-              endGame();
+
+              setTimeout(endGame, 2000);
             }
             return totalBet = 0;
           } else if (dealerScore === playerScore) {
@@ -178,17 +178,16 @@ $(function() {
             showChips();
             totalBet = 0;
             if (deck.length === 0) {
-              $('#result').hide()
-              endGame();
+
+              setTimeout(endGame, 2000);
             } else {
               return $('#result').append('<h1>Push</h1>')
             }
           } else if (dealerScore > playerScore) {
             $('#result').append('<h1>You Lose $' + totalBet + '</h1>')
             showChips();
-            if (chips <= 10 || deck.length === 0) {
-              $('#result').hide()
-              endGame();
+            if (chips < 10 || deck.length === 0) {
+              setTimeout(endGame, 2000);
             }
             return totalBet = 0;
           } else {
@@ -196,17 +195,17 @@ $(function() {
             chips += totalBet * 2
             showChips()
             if (deck.length === 0) {
-              $('#result').hide()
-              endGame();
+
+              setTimeout(endGame, 2000);
             }
             return totalBet = 0;
           }
         } else if (dealerScore > playerScore) {
           $('#result').append('<h1>You Lose $' + totalBet + '</h1>')
           showChips();
-          if (deck.length === 0) {
-            $('#result').hide()
-            endGame();
+          if (deck.length === 0 || chips < 10) {
+
+            setTimeout(endGame, 2000);
           }
           return totalBet = 0;
 
@@ -215,8 +214,8 @@ $(function() {
           showChips();
           totalBet = 0;
           if (deck.length === 0) {
-            $('#result').hide()
-            endGame();
+            $('#result').children().remove()
+            setTimeout(endGame, 2000);
           } else {
             return $('#result').append('<h1>Push</h1>')
           }
@@ -226,7 +225,7 @@ $(function() {
           showChips();
           if (deck.length === 0) {
             $('#result').children().remove()
-            endGame();
+            setTimeout(endGame, 2000);
           }
           return totalBet = 0;
         }
@@ -261,7 +260,7 @@ $(function() {
       }
       $('#hit').on('click', function() {
         if (deck.length === 0) {
-          endGame();
+          setTimeout(endGame(), 2000);
         }
         pHit()
         score()
@@ -271,20 +270,19 @@ $(function() {
           checkPlayerAces();
         }
         if (playerScore > 21) {
-          $('#result').append('<h1>BUSTED!</h1>')
+          $('#result').append('<h1>BUSTED! </h1>')
           totalBet = 10;
           $('#bet').show()
           $('#deal').show();
           $('#all-in').show();
           $('#hit').hide();
           $('#stick').hide();
-          if (chips <= 10 || deck.length === 0) {
-            endGame();
+          if (chips < 10 || deck.length === 0) {
+            setTimeout(endGame, 2000);
           }
         }
       })
       $('#stick').on('click', function() {
-        // console.log(deck.length);
         $('#hit').hide();
         $('#stick').hide();
         $('#bet').show();
@@ -294,7 +292,6 @@ $(function() {
         dealersTurn()
       })
       $('#deal').on('click', function() {
-        console.log(deck.length);
         chips -= bet;
         totalBet += bet;
         showChips()
@@ -308,7 +305,7 @@ $(function() {
         clear()
         deal()
         if (chips <= 10 || deck.length === 0) {
-          endGame();
+          setTimeout(endGame, 2000);
         }
       })
       $('#bet').on('click', function() {
@@ -351,7 +348,7 @@ $(function() {
         totalBet = 0;
         if (chips <= 10 || deck.length === 0) {
           $('#bet').hide();
-          endGame();
+          setTimeout(endGame, 2000);
         }
       })
       $('#all-in').on('click', function() {
