@@ -111,7 +111,7 @@ $(function() {
         $('#stick').hide();
         $('#doubleDown').hide();
         $('#all-in').hide();
-        $('#result').append('<h1>Continue?</h1><input class="continue" type="button" onclick="location.href=\'playingPage.html\'" value="YES" /><input class="continue" type="button" onclick="location.href=\'wtf.html\'" value="NO" />')
+        $('#result').append('<h1>Continue?</h1><input class="continue" type="button" onclick="location.href=\'playingPage.html\'" value="YES" /><input class="continue" type="button" onclick="location.href=\'http://www.buzzfeed.com/chelseamarshall/meows#.ucxQA7xv7\'" value="NO" />')
         // $('#result').append('<h1>Continue?</h1><button id="reshuffle">YES</button><button id="endGame">NO</button>');
       }
 
