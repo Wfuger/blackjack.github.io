@@ -1,9 +1,10 @@
-alert('This game is to meant improve your card counting ability.  Rules for counting are cards 2-6 have a value of +1, 10-A have a value of -1.  Cards 7-9 are neutral')
+alert('This game is to meant improve your card counting ability.  Rules for counting are cards 2-6 have a value of +1, 10-A have a value of -1.  Cards 7-9 are neutral. Bet high when the count is high. Bet conservative when the count is low.')
 $(function() {
   var tableColor = localStorage.getItem('background');
   $('body').css({
     'background-image': 'url(' + tableColor + ')'
   })
+  $('#doubleDown').hide();
   $('#bet').hide();
   var numDecks = localStorage.getItem('decks');
   var deck = [];
@@ -61,10 +62,9 @@ $(function() {
       }
 
       function deal() {
-        console.log(totalBet);
-        if (totalBet === 10) {
-          chips -= bet;
-        }
+        // if (totalBet === 10) {
+        //   chips -= bet;
+        // }
         for (var i = 0; i < 2; i++) {
           playerHand.push(deck[0])
           count += deck[0].count;
@@ -155,15 +155,20 @@ $(function() {
             }
           }
           score();
-          if (dealerScore > playerScore) {
+          if (dealerScore > 21) {
+            chips += totalBet * 2
             totalBet = 10;
             showChips()
-            return $('#result').append('<h1>You Lose!</h1>')
-          } else if (dealerScore === playerScore){
+            return $('#result').append('<h1>You Win!</h1>')
+          } else if (dealerScore === playerScore) {
             chips += totalBet
             totalBet = 10;
             showChips();
             return $('#result').append('<h1>Push</h1>')
+          } else if (dealerScore > playerScore) {
+            totalBet = 10;
+            showChips();
+            return $('#result').append('<h1>You Lose!</h1>')
           } else {
             chips += (totalBet * 2);
             totalBet = 10;
@@ -218,15 +223,17 @@ $(function() {
         pHit()
         score()
         $('#bet').hide();
+        $('#doubleDown').hide();
         if (playerScore > 21) {
           checkPlayerAces();
         }
         if (playerScore > 21) {
           $('#result').append('<h1>BUSTED!</h1>')
+          totalBet = 10;
+          $('#bet').show()
           $('#deal').show();
           $('#hit').hide();
           $('#stick').hide();
-          // totalBet = 10;
         }
       })
       $('#stick').on('click', function() {
@@ -234,22 +241,30 @@ $(function() {
         $('#stick').hide();
         $('#bet').show();
         $('#deal').show();
+        $('#doubleDown').hide()
         dealersTurn()
       })
       $('#deal').on('click', function() {
+        chips -= bet;
         $('#result').children().remove()
         $('#deal').hide();
         $('#hit').show();
         $('#stick').show();
-        $('#bet').show()
+        $('#bet').hide();
+        $('#doubleDown').show()
         clear()
         deal()
-          // totalBet = 10;
         showChips()
       })
       $('#bet').on('click', function() {
         chips -= bet;
         totalBet += bet;
+        showChips();
+      })
+      $('#doubleDown').on('click', function(){
+        $('#doubleDown').hide();
+        chips -= totalBet;
+        totalBet = totalBet * 2;
         showChips();
       })
     })

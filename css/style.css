@@ -115,3 +115,6 @@ button:hover {
   justify-content: center;
   align-items: center;
 }
+#doubleDown {
+  width: 200px;
+}
