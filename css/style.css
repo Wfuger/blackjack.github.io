@@ -80,6 +80,7 @@ h4 {
   flex: 1;
   /*border: 5px dashed yellow;*/
   justify-content: center;
+  /*flex-direction: column;*/
 }
 #buttons {
   display: flex;
@@ -115,6 +116,20 @@ button:hover {
   justify-content: center;
   align-items: center;
 }
+#player .right{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 #doubleDown {
   width: 200px;
+}
+#rules {
+  /*bottom: 0;
+  right: 0;*/
+}
+#pScore {
+  /*border: 5px solid dodgerblue;*/
+  height: 100%;
 }

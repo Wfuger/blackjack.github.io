@@ -13,6 +13,8 @@ $(function() {
     })
   })
   $('img').on('click', function(){
+    $('img').removeClass('bgChoice');
+    $(this).addClass('bgChoice');
     var bgColor = $(this).attr('src')
     var TheImage = localStorage.setItem('background', bgColor);
   })
