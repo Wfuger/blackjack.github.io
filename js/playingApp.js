@@ -112,7 +112,8 @@ $(function() {
         $('#doubleDown').hide();
         $('#all-in').hide();
         $('#result').children().remove();
-        $('#result').append('<h1>New Game?</h1><input class="continue" type="button" onclick="location.href=\'playingPage.html\'" value="YES" /><input class="continue" type="button" onclick="location.href=\'http://www.buzzfeed.com/chelseamarshall/meows#.ucxQA7xv7\'" value="NO" />')
+        $('#result').append('<h1>New Game?</h1>')
+        $('#buttons').append('<input class="continue" type="button" onclick="location.href=\'playingPage.html\'" value="YES" /><input class="continue" type="button" onclick="location.href=\'http://www.buzzfeed.com/chelseamarshall/meows#.ucxQA7xv7\'" value="NO" />')
       }
 
       function checkPlayerAces() {
@@ -169,6 +170,9 @@ $(function() {
             chips += totalBet * 2
             showChips()
             if (deck.length === 0) {
+              $('#bet').hide();
+              $('#deal').hide();
+              $('#all-in').hide();
               setTimeout(function(){
                 $('#result').children().remove();
                 $('#result').append('<h1>Game Over</h1>');
@@ -181,6 +185,9 @@ $(function() {
             showChips();
             totalBet = 0;
             if (deck.length === 0) {
+              $('#bet').hide();
+              $('#deal').hide();
+              $('#all-in').hide();
               setTimeout(function(){
                 $('#result').children().remove();
                 $('#result').append('<h1>Game Over</h1>');
@@ -193,6 +200,9 @@ $(function() {
             $('#result').append('<h1>You Lose $' + totalBet + '</h1>')
             showChips();
             if (chips < 10 || deck.length === 0) {
+              $('#deal').hide();
+              $('#all-in').hide();
+              $('#bet').hide();
               setTimeout(function(){
                 $('#result').children().remove();
                 $('#result').append('<h1>Game Over</h1>');
@@ -205,6 +215,9 @@ $(function() {
             chips += totalBet * 2
             showChips()
             if (deck.length === 0) {
+              $('#bet').hide();
+              $('#deal').hide();
+              $('#all-in').hide();
               setTimeout(function(){
                 $('#result').children().remove();
                 $('#result').append('<h1>Game Over</h1>');
@@ -217,6 +230,9 @@ $(function() {
           $('#result').append('<h1>You Lose $' + totalBet + '</h1>')
           showChips();
           if (deck.length === 0 || chips < 10) {
+            $('#deal').hide();
+            $('#all-in').hide();
+            $('#bet').hide();
             setTimeout(function(){
               $('#result').children().remove();
               $('#result').append('<h1>Game Over</h1>');
@@ -230,6 +246,9 @@ $(function() {
           showChips();
           totalBet = 0;
           if (deck.length === 0) {
+            $('#bet').hide();
+            $('#deal').hide();
+            $('#all-in').hide();
             setTimeout(function(){
               $('#result').children().remove();
               $('#result').append('<h1>Game Over</h1>');
@@ -243,6 +262,9 @@ $(function() {
           chips += totalBet * 2
           showChips();
           if (deck.length === 0) {
+            $('#bet').hide();
+            $('#deal').hide();
+            $('#all-in').hide();
             setTimeout(function(){
               $('#result').children().remove();
               $('#result').append('<h1>Game Over</h1>');
@@ -282,6 +304,9 @@ $(function() {
       }
       $('#hit').on('click', function() {
         if (deck.length === 0) {
+          $('#bet').hide();
+          $('#deal').hide();
+          $('#all-in').hide();
           setTimeout(function(){
             $('#result').children().remove();
             $('#result').append('<h1>Game Over</h1>');
@@ -296,7 +321,7 @@ $(function() {
           checkPlayerAces();
         }
         if (playerScore > 21) {
-          $('#result').append('<h1>BUSTED! </h1>')
+          $('#result').append('<h1>BUSTED!</h1>')
           totalBet = 10;
           $('#bet').show()
           $('#deal').show();
@@ -304,6 +329,9 @@ $(function() {
           $('#hit').hide();
           $('#stick').hide();
           if (chips < 10 || deck.length === 0) {
+            $('#deal').hide();
+            $('#all-in').hide();
+            $('#bet').hide();
             setTimeout(function(){
               $('#result').children().remove();
               $('#result').append('<h1>Game Over</h1>');
@@ -336,6 +364,9 @@ $(function() {
         deal()
         if (chips <= 10 || deck.length === 0) {
           setTimeout(function(){
+            $('#bet').hide();
+            $('#deal').hide();
+            $('#all-in').hide();
             $('#result').children().remove();
             $('#result').append('<h1>Game Over</h1>');
             setTimeout(endGame, 2000)
