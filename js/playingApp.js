@@ -85,9 +85,6 @@ $(function() {
           $('#bet').show()
           $('#all-in').show();
         }
-        if (playerScore > 21) {
-          checkPlayerAces();
-        }
       }
 
       function pHit() {
@@ -322,7 +319,7 @@ $(function() {
         }
         if (playerScore > 21) {
           $('#result').append('<h1>BUSTED!</h1>')
-          totalBet = 10;
+          totalBet = 0;
           $('#bet').show()
           $('#deal').show();
           $('#all-in').show();
@@ -440,7 +437,7 @@ $(function() {
         }
       })
       $('#rules').on('click', function() {
-        alert('Test your counting and Blackjack skills.  Rules for counting are cards 2-6 have a value of +1, 10-A have a value of -1.  Cards 7-9 are neutral. Bet high when the count is high. Bet conservatively when the count is low...don\'t tell Vegas.')
+        alert('')
       })
     })
   })

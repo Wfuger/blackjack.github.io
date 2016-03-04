@@ -2,7 +2,6 @@ body {
   background-color: rgb(23, 80, 0)
 }
 header {
-  border: 5px solid red;
   justify-content: space-around;
 }
 main {
@@ -11,12 +10,10 @@ main {
   justify-content: center;
   display: flex;
   flex-direction: column;
-  border: 5px solid yellow;
 }
 .row {
   display: flex;
   flex-direction: row;
-  border: 2px solid white;
   align-items: stretch;
   justify-content: center;
 }
@@ -33,37 +30,19 @@ button:hover {
   background-color: rgba(100, 100, 100, 0.3);
   color: rgba(125, 125, 125, 0.53);
 }
-#backgoundSelector {
-  display: flex;
-  margin-left: 200px;
-  width: 400px;
-  height: 200px;
-  perspective: 10000px;
-  border: 10px solid white;
-  flex: 1;
-}
 img {
   width: 100%;
   height: 100%;
   border-radius: 14%;
-  border: 3px solid black;
 }
 #carousel {
   width: 100%;
   height: 100%;
-  position: absolute;
-  transform-style: preserve-3d;
-  transition: transform 1.25s;
-  border: 5px solid blue;
 }
 #carousel figure {
-  margin: 0;
-  display: block;
-  position: absolute;
+  display: inline-block;
   width: 300px;
   height: 200px;
-  /*border-radius: 16%;*/
-  backface-visibility: hidden;
 }
 img:hover {
   border: 3px solid yellow;
@@ -71,21 +50,31 @@ img:hover {
 .bgChoice {
   border: 3px solid red;
 }
-#carousel figure:nth-child(1) {
-  transform: rotateY( 0deg) translateZ( 210px );
+
+h1 {
+  color: rgb(219, 255, 0);
+  text-shadow: 3px 3px 3px black;
+  font-size: 50px;
 }
-#carousel figure:nth-child(2) {
-  transform: rotateY( 72deg)translateZ( 210px );
+h2 {
+  color: rgb(200, 200, 200);
+  text-shadow: 3px 3px 3px black;
+  font-size: 30px;
 }
-#carousel figure:nth-child(3) {
-  transform: rotateY( 144deg)translateZ( 210px );
+#play{
+  width: 100px;
+  height: 50px;
+  background-color: black;
+  border-radius: 10px;
+  color: rgb(227, 205, 176);
+  font-size: 20px;
+  outline: none;
 }
-#carousel figure:nth-child(4) {
-  transform: rotateY( 216deg)translateZ( 210px );
+#play:hover {
+  background-color: rgb(4, 11, 82);
+  cursor: pointer;
 }
-#carousel figure:nth-child(5) {
-  transform: rotateY( 288deg)translateZ( 210px );
-}
-aside {
-  flex: 1;
+label {
+  color: rgb(195, 255, 197);
+  font-size: 20px;
 }
