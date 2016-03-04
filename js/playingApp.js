@@ -43,13 +43,11 @@ $(function() {
           deck[c].count = 0;
         }
       }
-
       function showChips() {
         $('#chipCount').children().remove();
         $('#chipCount').append('<h4>Chips: $' + chips + '</h4>')
         $('#chipCount').append('<h4>Bet: $' + totalBet + '</h4>')
       }
-
       function showCards() {
         $("#playerHand").children().remove();
         $("#dealerHand").children().remove();
@@ -60,7 +58,6 @@ $(function() {
           $("#dealerHand").append('<img class="cardClass" src="' + card.image + '" />');
         })
       }
-
       function deal() {
         for (var i = 0; i < 2; i++) {
           playerHand.push(deck[0])
@@ -75,13 +72,11 @@ $(function() {
         count += deck[0].count;
         upDateCount();
         deck.shift();
-        score();
         showCards();
-        if (playerHand[0].code.charAt(0) === playerHand[1].code.charAt(0)){
-          $('#split').show()
-          splitHand()
-        }
-        if (playerScore === 21) {
+        score();
+        if(playerScore === 22) {
+          checkPlayerAces();
+        } else if (playerScore === 21) {
           dealersTurn();
           $('#hit').hide();
           $('#stick').hide();
@@ -90,7 +85,6 @@ $(function() {
           $('#all-in').show();
         }
       }
-
       function pHit() {
         playerHand.push(deck[0]);
         count += deck[0].count;
@@ -98,14 +92,12 @@ $(function() {
         deck.shift();
         showCards();
       }
-
       function clear() {
         playerHand = [];
         dealerHand = [];
         playerScore = 0;
         dealerScore = 0;
       }
-
       function endGame() {
         $('#deal').hide();
         $('#hit').hide();
@@ -119,22 +111,20 @@ $(function() {
 
       function checkPlayerAces() {
         for (var a = 0; a < playerHand.length; a++) {
-          if (playerHand[a].value == 11) {
+          if (playerHand[a].value === 11) {
             playerHand[a].value = 1;
             return score();
           }
         }
       }
-
       function checkDealerAces() {
         for (var b = 0; b < dealerHand.length; b++) {
-          if (dealerHand[b].value == 11) {
+          if (dealerHand[b].value === 11) {
             dealerHand[b].value = 1;
             return score();
           }
         }
       }
-
       function dealersTurn() {
         $('#doubleDown').hide();
         dealerHand.shift();
@@ -149,7 +139,7 @@ $(function() {
             setTimeout(function(){
               $('#result').children().remove();
               $('#result').append('<h1>Chicken Dinner!</h1>');
-            }, 1500)
+            }, 1250)
           chips += totalBet * 2
           showChips()
           if (deck.length === 0) {
@@ -261,7 +251,6 @@ $(function() {
             }, 1750)
           }
           return totalBet = 0;
-
         } else if (dealerScore === playerScore) {
           chips += totalBet
           showChips();
@@ -295,22 +284,18 @@ $(function() {
           return totalBet = 0;
         }
       }
-
       function showPlayerScore() {
         $("#pScore").children().remove();
         $("#pScore").append('<h4> ' + playerName + '\'s Score: ' + playerScore + '</h4>');
       }
-
       function showDealerScore() {
         $("#dScore").children().remove();
         $("#dScore").append('<h4> Dealer\'s Score: ' + dealerScore + '</h4>');
       }
-
       function upDateCount() {
         $("#highscore").children().remove();
         $('#highscore').append('<h4> Count: ' + count + '</h4>');
       }
-
       function score() {
         playerScore = 0;
         dealerScore = 0;
@@ -443,10 +428,6 @@ $(function() {
         }
       })
       $('#all-in').on('click', function() {
-        if (chips <= 10) {
-          $('#result').children().remove()
-          return endGame();
-        } else {
           totalBet = totalBet + chips;
           chips = 0;
           showChips()
@@ -458,7 +439,6 @@ $(function() {
           $('#all-in').hide();
           clear()
           deal()
-        }
       })
     })
   })
