@@ -7,7 +7,7 @@ $(function() {
   $('#doubleDown').hide();
   $('#bet').hide();
   $('#all-in').hide();
-  $('#split').hide();
+  
   var deck = [];
   var playerHand = [];
   var dealerHand = [];
