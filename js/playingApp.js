@@ -7,6 +7,7 @@ $(function() {
   $('#doubleDown').hide();
   $('#bet').hide();
   $('#all-in').hide();
+  $('#split').hide();
   var deck = [];
   var playerHand = [];
   var dealerHand = [];
@@ -76,8 +77,11 @@ $(function() {
         deck.shift();
         score();
         showCards();
+        if (playerHand[0].code.charAt(0) === playerHand[1].code.charAt(0)){
+          $('#split').show()
+          splitHand()
+        }
         if (playerScore === 21) {
-          // $('#result').append('<h1>Winner Winner Chicken Dinner!</h1>')
           dealersTurn();
           $('#hit').hide();
           $('#stick').hide();
@@ -140,6 +144,26 @@ $(function() {
         deck.shift();
         showCards();
         score();
+        if((playerHand[0].value + playerHand[1].value) === 21 && dealerScore < 21) {
+            $('#result').append('<h1>Winner Winner</h1>')
+            setTimeout(function(){
+              $('#result').children().remove();
+              $('#result').append('<h1>Chicken Dinner!</h1>');
+            }, 1500)
+          chips += totalBet * 2
+          showChips()
+          if (deck.length === 0) {
+            $('#bet').hide();
+            $('#deal').hide();
+            $('#all-in').hide();
+            setTimeout(function() {
+              $('#result').children().remove();
+              $('#result').append('<h1>Game Over</h1>');
+              setTimeout(endGame, 1750)
+            }, 1750)
+          }
+          return totalBet = 0;
+        }
         while (dealerScore < 17) {
           dealerHand.push(deck[0]);
           count += deck[0].count;
@@ -435,9 +459,6 @@ $(function() {
           clear()
           deal()
         }
-      })
-      $('#rules').on('click', function() {
-        alert('')
       })
     })
   })
