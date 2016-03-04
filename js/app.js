@@ -18,9 +18,14 @@ $(function() {
     var bgColor = $(this).attr('src')
     var TheImage = localStorage.setItem('background', bgColor);
   })
-  $('input[type="submit"]').on('click', function(e) {
+  $('#play').on('click', function(e) {
     e.preventDefault();
-    var numDecks = $('input[type="radio"]:checked').attr('value');
-    var setDecks = localStorage.setItem('decks', numDecks);
+
+    var pName = $('#playername').val();
+    var setPName = localStorage.setItem('PlayerName', pName)
+    if (pName.length === 0) {
+      window.location.href = "index.html";
+      alert('Player Name is required')
+    }
   })
 });

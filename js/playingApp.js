@@ -1,4 +1,5 @@
 $(function() {
+  var playerName = localStorage.getItem("PlayerName");
   var tableColor = localStorage.getItem('background');
   $('body').css({
     'background-image': 'url(' + tableColor + ')'
@@ -6,7 +7,6 @@ $(function() {
   $('#doubleDown').hide();
   $('#bet').hide();
   $('#all-in').hide();
-  var numDecks = localStorage.getItem('decks');
   var deck = [];
   var playerHand = [];
   var dealerHand = [];
@@ -17,10 +17,10 @@ $(function() {
   var chips = 500;
   var bet = 10;
   var totalBet = 0;
-  $.getJSON("http://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=" + numDecks, function(d) {
+  $.getJSON("http://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6", function(d) {
     deckID = d.deck_id;
   }).then(function() {
-    $.getJSON("http://deckofcardsapi.com/api/deck/" + deckID + "/draw/?count=" + (numDecks * 52), function(card) {
+    $.getJSON("http://deckofcardsapi.com/api/deck/" + deckID + "/draw/?count=312", function(card) {
       $('#hit').hide();
       $('#stick').hide();
       for (i = 0; i < card.cards.length; i++) {
@@ -166,18 +166,18 @@ $(function() {
           }
           score();
           if (dealerScore > 21) {
-            $('#result').append('<h1>You Win $' + (totalBet * 2) + '</h1>')
+            $('#result').append('<h1>' + playerName + ' Wins $' + (totalBet * 2) + '</h1>')
             chips += totalBet * 2
             showChips()
             if (deck.length === 0) {
               $('#bet').hide();
               $('#deal').hide();
               $('#all-in').hide();
-              setTimeout(function(){
+              setTimeout(function() {
                 $('#result').children().remove();
                 $('#result').append('<h1>Game Over</h1>');
-                setTimeout(endGame, 2000)
-              }, 2000)
+                setTimeout(endGame, 1750)
+              }, 1750)
             }
             return totalBet = 0;
           } else if (dealerScore === playerScore) {
@@ -188,56 +188,56 @@ $(function() {
               $('#bet').hide();
               $('#deal').hide();
               $('#all-in').hide();
-              setTimeout(function(){
+              setTimeout(function() {
                 $('#result').children().remove();
                 $('#result').append('<h1>Game Over</h1>');
-                setTimeout(endGame, 2000)
-              }, 2000)
+                setTimeout(endGame, 1750)
+              }, 1750)
             } else {
               return $('#result').append('<h1>Push</h1>')
             }
           } else if (dealerScore > playerScore) {
-            $('#result').append('<h1>You Lose $' + totalBet + '</h1>')
+            $('#result').append('<h1>' + playerName + ' Loses $' + totalBet + '</h1>')
             showChips();
             if (chips < 10 || deck.length === 0) {
               $('#deal').hide();
               $('#all-in').hide();
               $('#bet').hide();
-              setTimeout(function(){
+              setTimeout(function() {
                 $('#result').children().remove();
                 $('#result').append('<h1>Game Over</h1>');
-                setTimeout(endGame, 2000)
-              }, 2000)
+                setTimeout(endGame, 1750)
+              }, 1750)
             }
             return totalBet = 0;
           } else {
-            $('#result').append('<h1>You Win $' + (totalBet * 2) + '</h1>')
+            $('#result').append('<h1>' + playerName + ' Wins $' + (totalBet * 2) + '</h1>')
             chips += totalBet * 2
             showChips()
             if (deck.length === 0) {
               $('#bet').hide();
               $('#deal').hide();
               $('#all-in').hide();
-              setTimeout(function(){
+              setTimeout(function() {
                 $('#result').children().remove();
                 $('#result').append('<h1>Game Over</h1>');
-                setTimeout(endGame, 2000)
-              }, 2000)
+                setTimeout(endGame, 1750)
+              }, 1750)
             }
             return totalBet = 0;
           }
         } else if (dealerScore > playerScore) {
-          $('#result').append('<h1>You Lose $' + totalBet + '</h1>')
+          $('#result').append('<h1>' + playerName + ' Loses $' + totalBet + '</h1>')
           showChips();
           if (deck.length === 0 || chips < 10) {
             $('#deal').hide();
             $('#all-in').hide();
             $('#bet').hide();
-            setTimeout(function(){
+            setTimeout(function() {
               $('#result').children().remove();
               $('#result').append('<h1>Game Over</h1>');
-              setTimeout(endGame, 2000)
-            }, 2000)
+              setTimeout(endGame, 1750)
+            }, 1750)
           }
           return totalBet = 0;
 
@@ -249,27 +249,27 @@ $(function() {
             $('#bet').hide();
             $('#deal').hide();
             $('#all-in').hide();
-            setTimeout(function(){
+            setTimeout(function() {
               $('#result').children().remove();
               $('#result').append('<h1>Game Over</h1>');
-              setTimeout(endGame, 2000)
-            }, 2000)
+              setTimeout(endGame, 1750)
+            }, 1750)
           } else {
             return $('#result').append('<h1>Push</h1>')
           }
         } else {
-          $('#result').append('<h1>You Win $' + (totalBet * 2) + '</h1>')
+          $('#result').append('<h1>' + playerName + ' Wins $' + (totalBet * 2) + '</h1>')
           chips += totalBet * 2
           showChips();
           if (deck.length === 0) {
             $('#bet').hide();
             $('#deal').hide();
             $('#all-in').hide();
-            setTimeout(function(){
+            setTimeout(function() {
               $('#result').children().remove();
               $('#result').append('<h1>Game Over</h1>');
-              setTimeout(endGame, 2000)
-            }, 2000)
+              setTimeout(endGame, 1750)
+            }, 1750)
           }
           return totalBet = 0;
         }
@@ -277,12 +277,12 @@ $(function() {
 
       function showPlayerScore() {
         $("#pScore").children().remove();
-        $("#pScore").append('<h4> Your Score: ' + playerScore + '</h4>');
+        $("#pScore").append('<h4> ' + playerName + '\'s Score: ' + playerScore + '</h4>');
       }
 
       function showDealerScore() {
         $("#dScore").children().remove();
-        $("#dScore").append('<h4> Dealer Score: ' + dealerScore + '</h4>');
+        $("#dScore").append('<h4> Dealer\'s Score: ' + dealerScore + '</h4>');
       }
 
       function upDateCount() {
@@ -307,11 +307,11 @@ $(function() {
           $('#bet').hide();
           $('#deal').hide();
           $('#all-in').hide();
-          setTimeout(function(){
+          setTimeout(function() {
             $('#result').children().remove();
             $('#result').append('<h1>Game Over</h1>');
-            setTimeout(endGame, 2000)
-          }, 2000)
+            setTimeout(endGame, 1750)
+          }, 1750)
         }
         pHit()
         score()
@@ -332,11 +332,11 @@ $(function() {
             $('#deal').hide();
             $('#all-in').hide();
             $('#bet').hide();
-            setTimeout(function(){
+            setTimeout(function() {
               $('#result').children().remove();
               $('#result').append('<h1>Game Over</h1>');
-              setTimeout(endGame, 2000)
-            }, 2000)
+              setTimeout(endGame, 1750)
+            }, 1750)
           }
         }
       })
@@ -363,14 +363,14 @@ $(function() {
         clear()
         deal()
         if (chips <= 10 || deck.length === 0) {
-          setTimeout(function(){
+          setTimeout(function() {
             $('#bet').hide();
             $('#deal').hide();
             $('#all-in').hide();
             $('#result').children().remove();
             $('#result').append('<h1>Game Over</h1>');
-            setTimeout(endGame, 2000)
-          }, 2000)
+            setTimeout(endGame, 1750)
+          }, 1750)
         }
       })
       $('#bet').on('click', function() {
@@ -413,11 +413,11 @@ $(function() {
         totalBet = 0;
         if (chips <= 10 || deck.length === 0) {
           $('#bet').hide();
-          setTimeout(function(){
+          setTimeout(function() {
             $('#result').children().remove();
             $('#result').append('<h1>Game Over</h1>');
-            setTimeout(endGame, 2000)
-          }, 2000)
+            setTimeout(endGame, 1750)
+          }, 1750)
 
         }
       })
@@ -426,7 +426,7 @@ $(function() {
           $('#result').children().remove()
           return endGame();
         } else {
-          totalBet =  totalBet + chips;
+          totalBet = totalBet + chips;
           chips = 0;
           showChips()
           $('#result').children().remove()

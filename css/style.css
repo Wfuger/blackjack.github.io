@@ -8,8 +8,8 @@ body {
 }
 main {
   height: 100%;
-  /*border: 10px solid red;*/
 }
+
 #result {
   display: flex;
   align-items: center;
@@ -98,6 +98,8 @@ button {
   color: rgb(227, 205, 176);
   font-size: 20px;
   outline: none;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 button:hover {
   background-color: rgb(4, 11, 82);
@@ -142,6 +144,8 @@ button:hover {
   color: rgb(227, 205, 176);
   font-size: 20px;
   outline: none;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 .continue:hover {
   background-color: rgb(4, 11, 82);
