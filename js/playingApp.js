@@ -7,7 +7,7 @@ $(function() {
   $('#doubleDown').hide();
   $('#bet').hide();
   $('#all-in').hide();
-  
+  $('#result').append('<h1>Welcome '+playerName+'</h1>')
   var deck = [];
   var playerHand = [];
   var dealerHand = [];
@@ -17,7 +17,7 @@ $(function() {
   var count = 0;
   var chips = 500;
   var bet = 10;
-  var totalBet = 0;
+  var totalBet = 10;
   $.getJSON("http://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=6", function(d) {
     deckID = d.deck_id;
   }).then(function() {
@@ -152,7 +152,7 @@ $(function() {
               setTimeout(endGame, 1750)
             }, 1750)
           }
-          return totalBet = 0;
+          return totalBet = 10;
         }
         while (dealerScore < 17) {
           dealerHand.push(deck[0]);
@@ -190,11 +190,11 @@ $(function() {
                 setTimeout(endGame, 1750)
               }, 1750)
             }
-            return totalBet = 0;
+            return totalBet = 10;
           } else if (dealerScore === playerScore) {
             chips += totalBet
             showChips();
-            totalBet = 0;
+            totalBet = 10;
             if (deck.length === 0) {
               $('#bet').hide();
               $('#deal').hide();
@@ -220,7 +220,7 @@ $(function() {
                 setTimeout(endGame, 1750)
               }, 1750)
             }
-            return totalBet = 0;
+            return totalBet = 10;
           } else {
             $('#result').append('<h1>' + playerName + ' Wins $' + (totalBet * 2) + '</h1>')
             chips += totalBet * 2
@@ -235,7 +235,7 @@ $(function() {
                 setTimeout(endGame, 1750)
               }, 1750)
             }
-            return totalBet = 0;
+            return totalBet = 10;
           }
         } else if (dealerScore > playerScore) {
           $('#result').append('<h1>' + playerName + ' Loses $' + totalBet + '</h1>')
@@ -250,11 +250,11 @@ $(function() {
               setTimeout(endGame, 1750)
             }, 1750)
           }
-          return totalBet = 0;
+          return totalBet = 10;
         } else if (dealerScore === playerScore) {
           chips += totalBet
           showChips();
-          totalBet = 0;
+          totalBet = 10;
           if (deck.length === 0) {
             $('#bet').hide();
             $('#deal').hide();
@@ -281,7 +281,7 @@ $(function() {
               setTimeout(endGame, 1750)
             }, 1750)
           }
-          return totalBet = 0;
+          return totalBet = 10;
         }
       }
       function showPlayerScore() {
@@ -328,7 +328,7 @@ $(function() {
         }
         if (playerScore > 21) {
           $('#result').append('<h1>BUSTED!</h1>')
-          totalBet = 0;
+          totalBet = 10;
           $('#bet').show()
           $('#deal').show();
           $('#all-in').show();
@@ -356,8 +356,8 @@ $(function() {
         dealersTurn()
       })
       $('#deal').on('click', function() {
-        chips -= bet;
-        totalBet += bet;
+        chips -= totalBet;
+        // totalBet += bet;
         showChips()
         $('#result').children().remove()
         $('#deal').hide();
@@ -368,7 +368,7 @@ $(function() {
         $('#doubleDown').show()
         clear()
         deal()
-        if (chips <= 10 || deck.length === 0) {
+        if (deck.length === 0) {
           setTimeout(function() {
             $('#bet').hide();
             $('#deal').hide();
@@ -380,10 +380,10 @@ $(function() {
         }
       })
       $('#bet').on('click', function() {
-        if (chips <= 10) {
+        if (totalBet === chips - 10) {
           $('#bet').hide();
         }
-        chips -= bet;
+        // chips -= bet;
         totalBet += bet;
         showChips();
       })
@@ -402,7 +402,7 @@ $(function() {
         }
         if (playerScore > 21) {
           $('#result').append('<h1>BUSTED!</h1>')
-          totalBet = 0;
+          totalBet = 10;
           $('#bet').show()
           $('#hit').hide();
           $('#stick').hide();
@@ -416,7 +416,7 @@ $(function() {
         $('#deal').show();
         $('#bet').show();
         $('#all-in').show();
-        totalBet = 0;
+        totalBet = 10;
         if (chips <= 10 || deck.length === 0) {
           $('#bet').hide();
           setTimeout(function() {

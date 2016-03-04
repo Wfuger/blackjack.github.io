@@ -54,7 +54,9 @@ img:hover {
 h1 {
   color: rgb(219, 255, 0);
   text-shadow: 3px 3px 3px black;
-  font-size: 50px;
+  font-size: 70px;
+  font-family: "blackjack";
+  font-weight: bold;
 }
 h2 {
   color: rgb(200, 200, 200);
